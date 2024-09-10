@@ -1,11 +1,11 @@
 Start the server
 
 ```bash
-~ npm install
+# npm install
 
-~ npm run build
+# npm run build
 
-~ npm run preview
+# npm run preview
 ```
 
 info about the server
