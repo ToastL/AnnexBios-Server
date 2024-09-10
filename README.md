@@ -7,3 +7,10 @@ Start the server
 
 ~ npm run preview
 ```
+
+info about the server
+
+```
+/api/movies # get the current running movies
+/api/movies/_movieName_
+```
