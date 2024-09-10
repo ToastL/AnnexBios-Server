@@ -18,8 +18,8 @@
     "mysql": "^2.18.1"
   },
   "scripts": {
-    "preview": "node build/index.js",
-    "build": "babel src --out-dir build --source-maps=inline --delete-dir-on-start --copy-files --verbose --extensions \".ts,tsx\"",
-    "dev": "npm run build && node build/index.js"
+    "preview": "node public/index.js",
+    "build": "babel src --out-dir public --source-maps=inline --delete-dir-on-start --copy-files --verbose --extensions \".ts,tsx\"",
+    "dev": "npm run build && node public/index.js"
   }
 }
