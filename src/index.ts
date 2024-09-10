@@ -2,7 +2,7 @@ import express from "express"
 import { Request } from "./types";
 import fs from "fs"
 
-const CURR_PATH: string = import.meta.dirname
+const CURR_PATH: string = __dirname
 const API_PREFIX: string = '/api'
 
 ;(async () => {
