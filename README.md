@@ -1,15 +1,9 @@
-# server
-
-To install dependencies:
+Start the server
 
 ```bash
-bun install
+~ npm install
+
+~ npm run build
+
+~ npm run preview
 ```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.13. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
