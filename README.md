@@ -12,5 +12,5 @@ info about the server
 
 ```
 /api/movies # get the current running movies
-/api/movies/_movieName_
+/api/movies/*movieName*
 ```
