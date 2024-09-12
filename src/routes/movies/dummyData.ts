@@ -1,5 +1,7 @@
-export default {
-    "interstellar": {
+export default [
+    {
+        id: 1,
+        title: "interstellar",
         description: "blablabla",
         rating: 4.5,
         duration: 3,
@@ -8,7 +10,9 @@ export default {
         banner_path: "/img/...",
         actors: ["idk", "idk", "idk"],
     },
-    "ninjago": {
+    {
+        id: 2,
+        title: "ninjago",
         description: "blablabla",
         rating: 4.2,
         duration: 2,
@@ -17,4 +21,4 @@ export default {
         banner_path: "/img/...",
         actors: ["idk", "idk", "idk"],
     }
-}
+]
