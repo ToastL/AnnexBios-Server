@@ -5,6 +5,8 @@ import fs from "fs"
 const CURR_PATH: string = __dirname
 const API_PREFIX: string = '/api'
 
+import conn from "./sql/connection";
+
 ;(async () => {
     const app = express()
     const port = process.env.PORT || 8080;
@@ -27,13 +29,13 @@ const API_PREFIX: string = '/api'
             const route = await import(filePath)
             switch (route.request) {
                 case Request.GET:
-                    app.get(routePath, route.callback)
+                    app.get(routePath, route.callback(conn))
                     break;
                 case Request.POST:
-                    app.post(routePath, route.callback)
+                    app.post(routePath, route.callback(conn))
                     break;
                 case Request.GET_POST:
-                    app.all(routePath, route.callback)
+                    app.all(routePath, route.callback(conn))
                     break;
                 default:
                     console.log(`Following file is not a route: ${filePath}`)

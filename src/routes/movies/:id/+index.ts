@@ -1,15 +1,24 @@
 import type { RequestHandler } from "express";
 import { Request } from '../../../types'
 
-import dummyData from "../dummyData"
+import { Client } from "pg";
 
 export const request: Request = Request.GET
 
-export const callback: RequestHandler = (req, res) => {
-    if (!dummyData[req.params.id]) {
-        res.status(200).send({error: 202, message: `Could not find movie ${req.params.id}`})
-        return
-    }
+export const callback = (pgConn: Client): RequestHandler => {
+    return async (req, res) => {
+        let result = await pgConn.query(`SELECT movie.${req.params.content} from (SELECT m.*, 
+                    ARRAY_AGG(a.id ORDER BY a.id, ', ') AS actor_ids 
+                    FROM movies m 
+                    JOIN movie_actors ma ON m.id = ma.movie_id
+                    JOIN actors a ON a.id = ma.actor_id
+                    WHERE m.id = ${req.params.id}
+                    GROUP BY m.id, m.title) as movie;`)
+        if (result.rows.length == 0) {
+            res.status(202).send({message: `movie with id '${req.params.id}' does not exist`})
+            return
+        }
 
-    res.send(dummyData[req.params.id])
+        res.send(result.rows)
+    }
 }

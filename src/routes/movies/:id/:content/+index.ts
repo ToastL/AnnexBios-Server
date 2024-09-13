@@ -1,20 +1,18 @@
 import type { RequestHandler } from "express";
 import { Request } from '../../../../types'
 
-import dummyData from "../../dummyData"
+import { Client } from "pg"
 
 export const request: Request = Request.GET
 
-export const callback: RequestHandler = (req, res) => {
-    if (!dummyData[req.params.id]) {
-        res.status(200).send({error: 202, message: `Could not find movie ${req.params.id}`})
-        return
-    }
+export const callback = (pgConn: Client): RequestHandler => {
+    return async (req, res) => {
+        let result = await pgConn.query(`SELECT ${req.params.content} FROM movies WHERE id = '${req.params.id}'`)
+        if (result.rows.length == 0) {
+            res.status(202).send({message: `movie with id '${req.params.id}' does not exist`})
+            return
+        }
 
-    if (!dummyData[req.params.id][req.params.content]) {
-        res.status(200).send({error: 202, message: `${req.params.content} does not exist in ${req.params.id}`})
-        return
+        res.send(result.rows)
     }
-
-    res.send(dummyData[req.params.id][req.params.content])
 }

@@ -3,6 +3,9 @@ import { Request } from '../types'
 
 export const request: Request = Request.GET
 
-export const callback: RequestHandler = (req, res) => {
-    res.send("pong!")
+export const callback = (): RequestHandler => {
+
+    return (req, res) => {
+        res.send("pong!")
+    }
 }
