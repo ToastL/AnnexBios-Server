@@ -9,7 +9,7 @@ export const callback = (pgConn: Client): RequestHandler => {
     return async (req, res) => {
         let result = await pgConn.query(
             `SELECT m.*, 
-                    ARRAY_AGG(a.id ORDER BY a.id, ', ') AS actor_ids 
+                    ARRAY_AGG(a.* ORDER BY a.id, ', ') AS actor_ids 
                     FROM movies m 
                     JOIN movie_actors ma ON m.id = ma.movie_id
                     JOIN actors a ON a.id = ma.actor_id
