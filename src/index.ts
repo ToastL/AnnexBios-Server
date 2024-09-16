@@ -2,8 +2,11 @@ import express from "express"
 import { Request } from "./types";
 import fs from "fs"
 
+import path from "path"
+
 const CURR_PATH: string = __dirname
 const API_PREFIX: string = '/api'
+const IMG_RREFIX: string = '/img/:folder/:file'
 
 import conn from "./sql/connection";
 
@@ -48,6 +51,17 @@ import conn from "./sql/connection";
 
     try {
         loop(`${CURR_PATH}/routes`, API_PREFIX)
+
+        app.get(IMG_RREFIX, (req, res) => {
+            const file = path.join(CURR_PATH, `./images/${req.params.folder}/${req.params.file}`)
+
+            if (fs.existsSync(file)) {
+                res.sendFile(file)
+                return
+            }
+
+            res.send(`File does not exist: "${file}"`)
+        })
     } catch(e) {
         console.error(e)
         process.exit(-1)
