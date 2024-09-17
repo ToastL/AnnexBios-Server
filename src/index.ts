@@ -2,6 +2,8 @@ import express from "express"
 import { Request } from "./types";
 import fs from "fs"
 
+import cors from "cors"
+
 import path from "path"
 
 const CURR_PATH: string = __dirname
@@ -13,6 +15,8 @@ import conn from "./sql/connection";
 ;(async () => {
     const app = express()
     const port = process.env.PORT || 8080;
+
+    app.use(cors())
     
     const loop = async (fullPath: string, path: string) => {
         const folderContent = await fs.readdirSync(fullPath)
